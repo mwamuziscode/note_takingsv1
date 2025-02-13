@@ -1,4 +1,4 @@
-
+{% load static %}
 
     <style>
       .bd-placeholder-img {
@@ -88,7 +88,7 @@
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
     <div class="container-xl">
-      <a class="navbar-brand" href="#">MWAMUZISCODE </a>
+      <a class="navbar-brand" href="{% url 'index' %}">MWAMUZISCODE </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -105,19 +105,39 @@
             <a class="nav-link" href="{% url 'note-list' %}"> Notes </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'tags-list' %}"> Tags </a>
+            <a class="nav-link" href="{% url 'tag-list' %}"> Tags </a>
           </li>
+          {% if user.is_authenticated %}
+          <!--logout-->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}"> Logout </a>
+          </li>
+          {% else %}
+          <!--login-->
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}"> Login </a>
           </li>
-          <li class="nav-item dropdown">
+          {% endif %}
+
+          <!-- hello username -->
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' username=request.user.username %}"> Hello {{ user.username }} </a>
+          </li>
+          {% endif %}
+
+
+
+          {% comment %} <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
-          </li>
+          </li> 
+          {% endcomment %}
+
         </ul>
         <form role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">

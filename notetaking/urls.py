@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from notes.views import custom_404_view  # Import your custom 404 view
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -27,3 +29,10 @@ urlpatterns = [
 
 
 handler404 = 'notes.views.custom_404_view'
+
+
+
+# If we are currently in DEBUG mode, we want to add the following two specific URL patterns.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

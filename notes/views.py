@@ -9,11 +9,18 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth import logout
+from django.shortcuts import render, get_object_or_404
 
+from faker import Faker
+
+
+#import User
+from django.contrib.auth.models import User
 # Create your views here.
 
 # Category Views
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'notes/categories/category_list.html'
     context_object_name = 'categories'
@@ -41,7 +48,7 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 
 
 # Tag Views
-class TagListView(ListView):
+class TagListView(LoginRequiredMixin, ListView):
     model = Tag
     template_name = 'notes/tags/tags_list.html'
     context_object_name = 'tags'
@@ -85,7 +92,7 @@ class NoteDetailView(LoginRequiredMixin, DetailView):
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
-    template_name = 'notes/note_form.html'
+    template_name = 'notes/note/note_form.html'
     fields = ['title', 'content', 'category', 'tags', 'is_archived', 'is_favorite']
 
     def form_valid(self, form):
@@ -139,4 +146,63 @@ class RegisterView(View):
             return redirect('login')  # Redirect to login page after registration
         return render(request, 'registration/register.html', {'form': form})
 
-# log
+# 
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect to the login page after logout
+
+
+
+
+
+# profile class view
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        return render(request, 'registration/profile.html', {'user': user})
+
+
+
+
+
+
+def createNote():
+    fake = Faker()
+    for _ in range(10):
+        category = Category.objects.create(name=fake.word())
+        tag = Tag.objects.create(name=fake.word())
+        note = Note.objects.create(
+            title=fake.sentence(),
+            content=fake.text(),
+            picture= "https://loremflickr.com/320/240",
+            category=category,
+            is_archived=fake.boolean(chance_of_getting_true=50),
+            user= User.objects.filter(is_superuser=True).order_by('?').first()
+        )
+        note.tags.add(tag)
+        note.save()
+    return 'Fake data created successfully'
+
+createNote()
+
+
+
+# DELETE ALL TAGS AND CATEGORIES
+def DeleteAll():
+   def deleteAllTags():
+    Tag.objects.all().delete()
+    return 'All Tags deleted successfully'
+
+   def deleteAllCategories():
+    Category.objects.all().delete()
+    return 'All Categories deleted successfully'
+
+   def deleteAllNotes():
+    Note.objects.all().delete()
+    return 'All Notes deleted successfully'
+
+   deleteAllTags()
+   deleteAllCategories()
+   deleteAllNotes()
+
+# DeleteAll()

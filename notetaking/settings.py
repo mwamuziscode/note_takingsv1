@@ -20,8 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+try:
+    print(os.environ['DJANGO_KEY'])
+except KeyError:
+    print("KeyError: 'DJANGO_KEY='")
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=v#l%8_%heynse0cmwh@$#^rxaf0+!5998$!l3+gblync0ce63'
+SECRET_KEY= os.environ['DJANGO_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # Change this to False when deploying to production
@@ -129,6 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Here we are configuring the Django project, so that it read
+# the 'static' folder inside the first "django_project" directory.
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+#     BASE_DIR / 'static',
+#     # BASE_DIR / 'Exam' / 'static',
+# ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

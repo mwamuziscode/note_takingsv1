@@ -1,0 +1,42 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card profile-card shadow-lg p-4 text-center">
+        <!-- Profile Image -->
+        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img rounded-circle mb-3">
+
+        <h2 class="text-primary">{{ user.username }}</h2>
+        <p class="text-muted">{{ user.email }}</p>
+
+        <hr>
+
+        <div class="user-details">
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+        </div>
+
+        <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
+    </div>
+</div>
+
+<style>
+    .profile-card {
+        width: 350px;
+        border-radius: 15px;
+        background: #fff;
+        transition: 0.3s ease-in-out;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.05);
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 4px solid #007bff;
+    }
+</style>
+{% endblock %}

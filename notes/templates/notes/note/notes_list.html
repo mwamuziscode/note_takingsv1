@@ -1,24 +1,8 @@
 {% extends 'notes/base.html' %}
-
+{% load static %}
 
 {% block content %}
-    {% comment %}
-    
-    <div class="row">
-        <div class="col-md-12">
-            <a href="{% url 'note-create' %}" class="btn btn-primary">Create Note</a>
-        </div>
-    </div>
 
-    {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}!</p>
-    {% comment %} <a href="{% url 'logout' %}">Logout</a> 
-    {% else %}
-    <p>You are not logged in.</p>
-    <a href="{% url 'login' %}">Login</a>
-
-
-{% endcomment %}
 
 {% block extrastyle %}    
 <style>
@@ -122,10 +106,10 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for note in notes %}
       <div class="col">
-        {% for note in notes %}
         <div class="card shadow-sm">
-          <img src="", width="100%" height="225" role="img">
+          <img src="{{ note.picture }}", width="100%" height="225" role="img">
           <div class="card-body">
             <p class="card-text">
                 {{ note.title }}
@@ -133,10 +117,10 @@
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary">
-                    <a href="{% url 'index' %}">View</a>
+                    <a href="{% url 'note-detail' note.pk %}' %}">View</a>
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">
-                    <a href="{% url 'index' %}">Edit</a>
+                    <a href="{% url 'note-update' note.pk %}' %}">Edit</a>
                 </button>
               </div>
               <small class="text-body-secondary">
@@ -145,8 +129,8 @@
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>

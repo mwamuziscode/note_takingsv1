@@ -36,9 +36,10 @@ urlpatterns = [
 # notes pattrns
 urlpatterns += [
     path('notes/', views.NoteListView.as_view(), name='note-list'),
-    path('notes/new/', views.CategoryCreateView.as_view(), name='note-create'),
+    path('notes/new/', views.NoteCreateView.as_view(), name='note-create'),
     path('notes/<int:pk>/edit/', views.NoteUpdateView.as_view(), name='note-update'),
     path('notes/<int:pk>/delete/', views.NoteDetailView.as_view(), name='note-delete'),
+    path('notes/<int:pk>/detail/', views.NoteDetailView.as_view(), name='note-detail'),
 ]
 
 # tags patterns 
@@ -51,12 +52,12 @@ urlpatterns += [
 
 
 # Tags patterns
-urlpatterns += [
-    path('tags/', views.TagListView.as_view(), name='tags-list'),
-    path('tags/new/', views.TagCreateView.as_view(), name='tag-create'),
-    path('tags/<int:pk>/edit/', views.TagUpdateView.as_view(), name='tag-update'),
-    path('tags/<int:pk>/delete/', views.TagDeleteView.as_view(), name='tag-delete'),
-]
+# urlpatterns += [
+#     path('tags/', views.TagListView.as_view(), name='tags-list'),
+#     path('tags/new/', views.TagCreateView.as_view(), name='tag-create'),
+#     path('tags/<int:pk>/edit/', views.TagUpdateView.as_view(), name='tag-update'),
+#     path('tags/<int:pk>/delete/', views.TagDeleteView.as_view(), name='tag-delete'),
+# ]
 
 
 
@@ -69,12 +70,8 @@ urlpatterns += [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     #register class view
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
-    #ath('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
-    #ath('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
-    #ath('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
-    #ath('password-change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
-    #ath('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), name='password_change_done'),
-
+    # ProfileView
+    path('profile/<str:username>', views.ProfileView.as_view(), name='profile'),
 ]
