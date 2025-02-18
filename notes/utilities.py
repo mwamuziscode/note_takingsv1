@@ -1,4 +1,4 @@
-from notes.models  import Category, Tag, Note
+from notes.models.tag  import Category, Tag, Note
 from faker import Faker
 from django.contrib.auth.models import User
 

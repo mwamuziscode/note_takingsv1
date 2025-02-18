@@ -16,38 +16,36 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from . import views
+from notes.views import cats, tags, notes, views
 handler404 = 'notes.views.custom_404_view'
 
 
 from django.urls import path
 
-#vimport CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
-from . import views 
 
 urlpatterns = [
     path('', views.index, name='index'),    
-    path('category-list', views.CategoryListView.as_view(), name='category-list'),
-    path('categories/new/', views.CategoryCreateView.as_view(), name='category-create'),
-    path('categories/<int:pk>/edit/', views.CategoryUpdateView.as_view(), name='category-update'),
-    path('categories/<int:pk>/delete/', views.CategoryDeleteView.as_view(), name='category-delete'),
+    path('category-list', cats.CategoryListView.as_view(), name='category-list'),
+    path('categories/new/', cats.CategoryCreateView.as_view(), name='category-create'),
+    path('categories/<int:pk>/edit/', cats.CategoryUpdateView.as_view(), name='category-update'),
+    path('categories/<int:pk>/delete/', cats.CategoryDeleteView.as_view(), name='category-delete'),
 ]
 
 # notes pattrns
 urlpatterns += [
-    path('notes/', views.NoteListView.as_view(), name='note-list'),
-    path('notes/new/', views.NoteCreateView.as_view(), name='note-create'),
-    path('notes/<int:pk>/edit/', views.NoteUpdateView.as_view(), name='note-update'),
-    path('notes/<int:pk>/delete/', views.NoteDetailView.as_view(), name='note-delete'),
-    path('notes/<int:pk>/detail/', views.NoteDetailView.as_view(), name='note-detail'),
+    path('notes/', notes.NoteListView.as_view(), name='note-list'),
+    path('notes/new/', notes.NoteCreateView.as_view(), name='note-create'),
+    path('notes/<int:pk>/edit/', notes.NoteUpdateView.as_view(), name='note-update'),
+    path('notes/<int:pk>/delete/', notes.NoteDetailView.as_view(), name='note-delete'),
+    path('notes/<int:pk>/detail/', notes.NoteDetailView.as_view(), name='note-detail'),
 ]
 
 # tags patterns 
 urlpatterns += [
-    path('tags/', views.TagListView.as_view(), name='tag-list'),
-    path('tags/new/', views.TagCreateView.as_view(), name='tag-create'),
-    path('tags/<int:pk>/edit/', views.TagUpdateView.as_view(), name='tag-update'),
-    path('tags/<int:pk>/delete/', views.TagDeleteView.as_view(), name='tag-delete'),
+    path('tags/', tags.TagListView.as_view(), name='tag-list'),
+    path('tags/new/', tags.TagCreateView.as_view(), name='tag-create'),
+    path('tags/<int:pk>/edit/', tags.TagUpdateView.as_view(), name='tag-update'),
+    path('tags/<int:pk>/delete/', tags.TagDeleteView.as_view(), name='tag-delete'),
 ]
 
 

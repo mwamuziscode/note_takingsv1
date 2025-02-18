@@ -1,24 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 from faker import Faker
+from ckeditor.fields import RichTextField
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
+from .cats import Category
+from .tag import Tag
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Note(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content =RichTextField()
     #picture = models.ImageField(upload_to='notes/', null=True, blank=True, default='notes/default.jpg') 
     picture = models.URLField(max_length=255, null=True, blank=True, default='https://via.placeholder.com/150')
     created_at = models.DateTimeField(auto_now_add=True)

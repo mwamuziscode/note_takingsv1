@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from notes.views import custom_404_view  # Import your custom 404 view
+from notes.views.views import custom_404_view  # Import your custom 404 view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,11 +24,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('notes.urls'))
+    path('', include('notes.urls')),
+    #path("ckeditor5/", include('django_ckeditor_5.urls')),
 ]
 
 
-handler404 = 'notes.views.custom_404_view'
+handler404 = 'notes.views.views.custom_404_view'
 
 
 
