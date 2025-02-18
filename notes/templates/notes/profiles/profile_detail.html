@@ -1,0 +1,30 @@
+{% extends "notes/base.html" %} 
+
+{% load static %}
+
+{% block extrastyle %}
+  {% include 'notes/sidebars/sidebars.css' %}  
+{% endblock extrastyle %}
+    
+
+
+{% block content %}
+
+{% include 'notes/sidebars/sidebars.html' %}
+
+
+    <h2>{{ profile.user.username }}'s Profile</h2>
+    <p>Bio: {{ profile.bio }}</p>
+    <p>Location: {{ profile.location }}</p>
+    <p>Birth Date: {{ profile.birth_date }}</p>
+    <a href="{% url 'profile_update' profile.pk %}">Edit</a>
+    <a href="{% url 'profile_delete' profile.pk %}">Delete</a>
+    <a href="{% url 'profile_list' %}">Back to Profiles</a>
+
+{% endblock content %}
+
+
+{% block extrascripts %}
+    {% include 'notes/sidebars/sidebars.css' %}
+{% endblock extrascripts %}
+    

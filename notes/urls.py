@@ -16,15 +16,15 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from notes.views import cats, tags, notes, views
-handler404 = 'notes.views.custom_404_view'
+from notes.views import cats, tags, notes, views, profiles, index, registrations
+
 
 
 from django.urls import path
 
 
 urlpatterns = [
-    path('', views.index, name='index'),    
+    path('', index.Home, name='index'),    
     path('category-list', cats.CategoryListView.as_view(), name='category-list'),
     path('categories/new/', cats.CategoryCreateView.as_view(), name='category-create'),
     path('categories/<int:pk>/edit/', cats.CategoryUpdateView.as_view(), name='category-update'),
@@ -50,13 +50,13 @@ urlpatterns += [
 
 
 # Tags patterns
-# urlpatterns += [
-#     path('tags/', views.TagListView.as_view(), name='tags-list'),
-#     path('tags/new/', views.TagCreateView.as_view(), name='tag-create'),
-#     path('tags/<int:pk>/edit/', views.TagUpdateView.as_view(), name='tag-update'),
-#     path('tags/<int:pk>/delete/', views.TagDeleteView.as_view(), name='tag-delete'),
-# ]
-
+urlpatterns += [
+    path('profiles-list', profiles.ProfileListView.as_view(), name='profile_list'),
+    path('profile/<int:pk>', profiles.ProfileDetailView.as_view(), name='profile_detail'),
+    path('profile/create/', profiles.ProfileCreateView.as_view(), name='profile_create'),
+    path('profile/<int:pk>/edit/', profiles.ProfileUpdateView.as_view(), name='profile_update'),
+    path('profile/<int:pk>/delete/', profiles.ProfileDeleteView.as_view(), name='profile_delete'),
+]
 
 
 
@@ -67,9 +67,9 @@ urlpatterns += [
     #login
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     #register class view
-    path('register/', views.RegisterView.as_view(), name='register'),
-    path('logout/', views.logout_view, name='logout'),
+    path('register/', registrations.RegisterView.as_view(), name='register'),
+    path('logout/', registrations.logout_view, name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
     # ProfileView
-    path('profile/<str:username>', views.ProfileView.as_view(), name='profile'),
+    # path('profile/<str:username>', profiles.ProfileView.as_view(), name='profile'),
 ]
