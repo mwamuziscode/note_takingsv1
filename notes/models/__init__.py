@@ -3,5 +3,5 @@ from notes.models import profiles, notes, cats, tag
 cats.Category
 tag.Tag
 notes.Note
-profiles.Profile
+# profiles.Profile
 # registrations.RegisterView

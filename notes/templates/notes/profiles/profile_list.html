@@ -1,10 +1,14 @@
 {% extends 'notes/base.html' %}
+
 {% block content %}
-    <h2>Profiles</h2>
+    <h2>Your Profile</h2>
     <ul>
-        {% for profile in profiles %}
-            <li><a href="{% url 'profile_detail' profile.pk %}">{{ profile.user.username }}</a></li>
-        {% endfor %}
+        {% if profiles %}
+            {% for profile in profiles %}
+                <li><a href="{% url 'profile_detail' profile.pk %}">{{ profile.user.username }}</a></li>
+            {% endfor %}
+        {% else %}
+            <p>You don't have a profile yet. <a href="{% url 'profile_create' %}">Create Profile</a></p>
+        {% endif %}
     </ul>
-    <a href="{% url 'profile_create' %}">Create Profile</a>
 {% endblock %}
