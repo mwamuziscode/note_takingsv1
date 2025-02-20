@@ -13,6 +13,7 @@ env/
 *.log
 db.sqlite3
 db.sqlite3-journal
+myweb.sqlite3
 media/
 staticfiles/
 static/admin
