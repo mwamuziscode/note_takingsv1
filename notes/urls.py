@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from notes.views import cats, tags, notes, views, profiles, index, registrations
+from notes.views import cats, tags, notes, profiles, index, registrations
 
 
 
@@ -52,7 +52,7 @@ urlpatterns += [
 # Tags patterns
 urlpatterns += [
     path('profiles-list', profiles.ProfileListView.as_view(), name='profile_list'),
-    path('profile/<int:pk>', profiles.ProfileDetailView.as_view(), name='profile_detail'),
+    path('profile/<int:pk>/minside', profiles.ProfileDetailView.as_view(), name='profile_detail'),
     path('profile/create/', profiles.ProfileCreateView.as_view(), name='profile_create'),
     path('profile/<int:pk>/edit/', profiles.ProfileUpdateView.as_view(), name='profile_update'),
     path('profile/<int:pk>/delete/', profiles.ProfileDeleteView.as_view(), name='profile_delete'),

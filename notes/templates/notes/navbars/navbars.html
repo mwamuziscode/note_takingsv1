@@ -120,9 +120,9 @@
           {% endif %}
 
           <!-- hello username -->
-          {% if profile.is_authenticated %}
+          {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile_detail' pk=profile.pk %}"> Hello {{ profile.user.username }} </a>
+            <a class="nav-link" href="{% url 'profile_detail' pk=user.pk %}"> Hello {{ user }} </a>
             {% comment %} <a class="nav-link" href="{% url 'profile_detail' pk=user.profile.pk %}"> Hello {{ user.username }} </a> {% endcomment %}
           </li>
           {% endif %}
