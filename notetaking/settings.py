@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 try:
     print(os.environ['DJANGO_KEY'])
 except KeyError:
-    print("KeyError: 'DJANGO_KEY='")
+    print("KeyError: 'DJANGO_KEY'")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY= os.environ['DJANGO_KEY']
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'rest_framework',
     'notes',
-    'crispy_forms',
+    # 'crispy_forms',
     #'django_ckeditor_5',
 ]
 
