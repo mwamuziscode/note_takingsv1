@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from faker import Faker
 from ckeditor.fields import RichTextField
-
+# RichTextUploadingField()  #
+from ckeditor_uploader.fields import RichTextUploadingField   
 
 from .cats import Category
 from .tag import Tag
@@ -12,6 +13,9 @@ from .tag import Tag
 class Note(models.Model):
     title = models.CharField(max_length=200)
     content =RichTextField()
+    # content = models.TextField()
+    content = RichTextUploadingField()
+
     #picture = models.ImageField(upload_to='notes/', null=True, blank=True, default='notes/default.jpg') 
     picture = models.URLField(max_length=255, null=True, blank=True, default='https://via.placeholder.com/150')
     created_at = models.DateTimeField(auto_now_add=True)

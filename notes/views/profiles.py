@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.views.generic import FormView
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 
@@ -45,7 +47,9 @@ class ProfileUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         """Redirect to profile detail after updating."""
-        return reverse_lazy("profile_detail")
+        print(f" MR KING DEBUGER: {self.get_object().pk}")
+        return HttpResponseRedirect(reverse("profile_list")) # type: ignore
+
 
 
 class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

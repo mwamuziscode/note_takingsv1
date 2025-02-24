@@ -15,5 +15,10 @@
         <button type="submit">Save</button>
     </form>
 
+    {% block extrahead %}
+    <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+    {{ block.super }}
+    {% endblock %}
+    
     <a href="{% url 'profile_list' %}">Cancel</a>
 {% endblock %}

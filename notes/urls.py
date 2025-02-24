@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from notes.views import cats, tags, notes, profiles, index, registrations
-
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 
 from django.urls import path
@@ -63,7 +63,6 @@ urlpatterns += [
 # Authentication URLs
 urlpatterns += [
     # Authentication URLs
-
     #login
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     #register class view
@@ -73,3 +72,8 @@ urlpatterns += [
     # ProfileView
     # path('profile/<str:username>', profiles.ProfileView.as_view(), name='profile'),
 ]
+
+
+urlpatterns += [
+    # ... the rest of your URLconf goes here ...
+] + debug_toolbar_urls()

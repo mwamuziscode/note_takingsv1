@@ -15,6 +15,8 @@ import os
 
 from notetaking.ckeditor_setts import *
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -35,6 +37,11 @@ DEBUG = True # Change this to False when deploying to production
 
 ALLOWED_HOSTS = ['*']
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.12",
+    # ...
+]
 
 # Application definition
 
@@ -51,6 +58,15 @@ INSTALLED_APPS = [
     #'django_ckeditor_5',
 ]
 
+INSTALLED_APPS += [
+    # ...
+    "debug_toolbar",
+    "ckeditor_uploader",
+    "ckeditor",
+
+    # ...
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,6 +75,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+MIDDLEWARE += [
+    # ...
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # ...
 ]
 
 ROOT_URLCONF = 'notetaking.urls'
@@ -96,7 +118,7 @@ WSGI_APPLICATION = 'notetaking.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / os.environ['MYWESTSIDE'],
+        'NAME': os.environ['MYWESTSIDE'],
     }
 }
 

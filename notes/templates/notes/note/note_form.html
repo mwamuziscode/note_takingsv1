@@ -1,5 +1,7 @@
 {% extends "notes/base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 <!-- form note edit -->
@@ -14,5 +16,16 @@
             </form>
         </div>
     </div>
-{% endblock %}
 
+
+
+    {% block extrahead %}
+    <script>
+        window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';
+    </script>
+    {{ block.super }}
+    {% endblock %}
+
+
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

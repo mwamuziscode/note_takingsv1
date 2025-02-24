@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from notes.models.notes import Note
+from notes.models.tag import Tag
 from django.contrib.auth.mixins import LoginRequiredMixin
 # login_required decorator
 from django.contrib.auth.forms import UserCreationForm
@@ -46,6 +47,14 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'notes/note/note_form.html'
     fields = ['title', 'content', 'category', 'tags', 'is_archived', 'is_favorite']
     success_url = reverse_lazy('note-list')
+
+class NoteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Note
+    template_name = 'notes/note_confirm_delete.html'
+    success_url = reverse_lazy('note-list')
+
+
+
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
