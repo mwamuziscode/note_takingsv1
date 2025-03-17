@@ -34,7 +34,7 @@ class NoteDetailView(LoginRequiredMixin, DetailView):
 class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     template_name = 'notes/note/note_form.html'
-    fields = ['title', 'content', 'category', 'tags', 'is_archived', 'is_favorite']
+    fields = ['title', 'frontpic','content', 'category', 'tags', 'is_archived', 'is_favorite']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -45,7 +45,7 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
     template_name = 'notes/note/note_form.html'
-    fields = ['title', 'content', 'category', 'tags', 'is_archived', 'is_favorite']
+    fields = ['title', 'frontpic','content', 'category', 'tags', 'is_archived', 'is_favorite']
     success_url = reverse_lazy('note-list')
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
