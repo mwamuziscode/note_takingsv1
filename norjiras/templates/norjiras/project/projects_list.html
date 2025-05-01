@@ -89,59 +89,65 @@
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">
+          PROJECT LIST 
+        </h1>
+        <p class="lead text-body-secondary">
+          
         <p>
           <a href="#" class="btn btn-primary my-2">
             send me mail
           </a>
-          <a href="{% url 'notes:note-create' %}" class="btn btn-secondary">Create Note </a> 
+          <a href="{% url 'norjiras:project-create' %}" class="btn btn-secondary">Create Project </a> 
         </p>
       </div>
     </div>
   </section>
 
-<div class="album py-5 bg-body-tertiary">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      {% for note in notes %}
-      <div class="col">
-        <div class="card shadow-sm">
 
-          {% if note.image_name == "default.jpg" %}
-          <img src="{{ note.picture_url }}" width="100%" height="225" role="img" alt="{{ note.title }}">
-           {% else %}
-          <img src="{{ note.picture_url.url }}" width="100%" height="225" role="img" alt>
-          {% endif %}
 
-          <div class="card-body">
-            <p class="card-text">
-                {{ note.title }}
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                    <a href="{% url 'notes:note-detail' note.pk  %}">View</a>
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                    <a href="{% url 'notes:note-update' note.pk %}">Edit</a>
-                </button>
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="text-primary">Projects {{ project.count }}</h1>
+      <a href="{% url 'norjiras:project-create' %}" class="btn btn-success">Add New Project</a>
+    </div>
 
-                <button type="button" class="btn btn-sm btn-danger">
-                    <a href="{% url 'notes:note-delete' note.pk %}">delete </a>
-                </button>
-              </div>
-              <small class="text-body-secondary">
-                    {{ note.created_at }}
-              </small>
-            </div>
-          </div>
-        </div>
+
+  {% if project %}
+  {% for project in project %}
+  <div class="d-flex text-body-primary pt-3">
+    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+      <div class="d-flex justify-content-between">
+        <strong class="text-gray-dark">
+          <a href="#"> {{ project.name }} </a>
+        </strong>
+
+        <a href="#">
+          <a href="{% url 'norjiras:project-create' %}" class="btn btn-success">Edit</a>
+
+        </a>
       </div>
-      {% endfor %}
+      <span class="d-block">@
+        {{ project.created_at|date:"Y-m-d H:i:s" }}
+      </span>
+
+      <!-- create by -->
+      <span class="d-block">Created by:
+        {{ project.project_lead }}
+      </span>
+
+
     </div>
   </div>
-</div>
+  {% endfor %}
+
+
+  {% else %}
+  <div class="alert alert-info">
+    No projects found. Add a new one to get started!
+  </div>
+  {% endif %}
 
   
 {% endblock content %}

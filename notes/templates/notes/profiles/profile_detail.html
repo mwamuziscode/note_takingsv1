@@ -20,10 +20,12 @@
 
 
     
-     <a href="{% url 'profile_update' pk=request.user.pk %}" class="btn btn-warning">Edit</a>
-    <a href="{% url 'profile_delete' pk=request.user.pk %}" class="btn btn-danger">Delete</a>
-    <a href="{% url 'note-create' %}" class="btn btn-secondary">Create Note </a> 
-    <a href="{% url 'profile_list' %}" class="btn btn-info">Back to Profiles</a> 
+    <a href="{% url 'notes:profile_update' pk=request.user.pk %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'notes:profile_delete' pk=request.user.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'notes:note-create' %}" class="btn btn-secondary">Create Note </a> 
+    <a href="{% url 'notes:note-list' %}" class="btn btn-info">My Notes </a> 
+    <a href="{% url 'notes:profile_list' %}" class="btn btn-info">Back to Profiles</a> 
+
    {% comment %} {% endcomment %}
 
 

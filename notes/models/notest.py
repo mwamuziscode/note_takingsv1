@@ -14,8 +14,8 @@ class Note(models.Model):
     content = RichTextField()
     # content = models.TextField()
     content = RichTextUploadingField()
-    frontpic = models.ImageField(upload_to='notes/', null=True, default='notes/default.jpg')
-    # picture = models.URLField(max_length=255, null=True, blank=True, default='https://via.placeholder.com/150')
+    image_name = models.ImageField(upload_to='images', default="defaults.jpg", blank=False)
+    picture_url = models.URLField(max_length=255, null=True, blank=True, default='https://loremflickr.com/640/480?lock=1234')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -23,6 +23,7 @@ class Note(models.Model):
     is_archived = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.title

@@ -14,8 +14,8 @@
     <p>{{ note.updated }}</p>
    here:  <p> {{ note.image_name.url }} </p>
 
-<a href="{% url 'notes:note-list' %}" class="btn btn-secondary">Go Back</a> 
-<a href="{% url 'notes:note-delete' note.pk %}" class="btn btn-danger">Delete Note</a> 
+<a href="{% url 'note-list' %}" class="btn btn-secondary">Go Back</a> 
+<a href="{% url 'note-delete' note.pk %}" class="btn btn-danger">Delete Note</a> 
 <script>
 $(document).ready(function() {
     // Bind the click event to the delete button

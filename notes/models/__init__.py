@@ -1,7 +1,7 @@
-from notes.models import profiles, notes, cats, tag
+from notes.models import notest, profiles, cats, tag
 
 cats.Category
 tag.Tag
-notes.Note
+notest.Note
 profiles.Profile
 # registrations.RegisterView
