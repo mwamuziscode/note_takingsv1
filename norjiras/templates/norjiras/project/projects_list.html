@@ -1,153 +1,111 @@
 {% extends 'notes/base.html' %}
 {% load static %}
 
+
 {% block content %}
 
-
 {% block extrastyle %}    
-<style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    .b-example-divider {
-      width: 100%;
-      height: 3rem;
-      background-color: rgba(0, 0, 0, .1);
-      border: solid rgba(0, 0, 0, .15);
-      border-width: 1px 0;
-      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-    }
-
-    .b-example-vr {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 100vh;
-    }
-
-    .bi {
-      vertical-align: -.125em;
-      fill: currentColor;
-    }
-
-    .nav-scroller {
-      position: relative;
-      z-index: 2;
-      height: 2.75rem;
-      overflow-y: hidden;
-    }
-
-    .nav-scroller .nav {
-      display: flex;
-      flex-wrap: nowrap;
-      padding-bottom: 1rem;
-      margin-top: -1px;
-      overflow-x: auto;
-      text-align: center;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .btn-bd-primary {
-      --bd-violet-bg: #712cf9;
-      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-      --bs-btn-font-weight: 600;
-      --bs-btn-color: var(--bs-white);
-      --bs-btn-bg: var(--bd-violet-bg);
-      --bs-btn-border-color: var(--bd-violet-bg);
-      --bs-btn-hover-color: var(--bs-white);
-      --bs-btn-hover-bg: #6528e0;
-      --bs-btn-hover-border-color: #6528e0;
-      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-      --bs-btn-active-color: var(--bs-btn-hover-color);
-      --bs-btn-active-bg: #5a23c8;
-      --bs-btn-active-border-color: #5a23c8;
-    }
-
-    .bd-mode-toggle {
-      z-index: 1500;
-    }
-
-    .bd-mode-toggle .dropdown-menu .active .bi {
-      display: block !important;
-    }
-  </style>
-
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .search-box {
+            max-width: 300px;
+        }
+        .filter-form {
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .table thead {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 5px;
+        }
+    </style>
 {% endblock extrastyle %}
 
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">
-          PROJECT LIST 
-        </h1>
-        <p class="lead text-body-secondary">
-          
-        <p>
-          <a href="#" class="btn btn-primary my-2">
-            send me mail
-          </a>
-          <a href="{% url 'norjiras:project-create' %}" class="btn btn-secondary">Create Project </a> 
-        </p>
-      </div>
+
+
+
+<div class="container py-5">
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+        <h3 class="mb-4 text-center text-primary">Project List {{ project.count }} </h3>
+
+        <form method="get" class="d-flex justify-content-between align-items-center filter-form mb-4">
+            <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search project..." class="form-control search-box">
+
+            <select name="category" class="form-select" style="max-width: 250px;">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
+        <table class="table table-hover table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Key</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Lead</th>
+                    <th>Members</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.project_key | upper  }}</td>
+                        <td>{{ project.category.name }}</td>
+                        <td>
+                            <span class="badge bg-{{ project.project_status|yesno:'success,secondary' }}">
+                                {{ project.get_project_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <img src="https://i.pravatar.cc/60?u={{ project.project_lead.id }}" class="avatar" alt="Lead">
+                            {{ project.project_lead.get_full_name|default:project.project_lead.username }}
+                        </td>
+                        <td>
+                            {% for member in project.project_members.all %}
+                                <img src="https://i.pravatar.cc/40?u={{ member.id }}" class="avatar" alt="Member">
+                            {% empty %}
+                                <span class="text-muted">No members</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{% url 'norjiras:project-detail' project.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">No projects found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-  </section>
+</div>
+
+{% block extrahead %}
+<script>
+    window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';
+</script>
+{{ block.super }}
+{% endblock %}
 
 
-
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h1 class="text-primary">Projects {{ project.count }}</h1>
-      <a href="{% url 'norjiras:project-create' %}" class="btn btn-success">Add New Project</a>
-    </div>
-
-
-  {% if project %}
-  {% for project in project %}
-  <div class="d-flex text-body-primary pt-3">
-    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-      <div class="d-flex justify-content-between">
-        <strong class="text-gray-dark">
-          <a href="#"> {{ project.name }} </a>
-        </strong>
-
-        <a href="#">
-          <a href="{% url 'norjiras:project-create' %}" class="btn btn-success">Edit</a>
-
-        </a>
-      </div>
-      <span class="d-block">@
-        {{ project.created_at|date:"Y-m-d H:i:s" }}
-      </span>
-
-      <!-- create by -->
-      <span class="d-block">Created by:
-        {{ project.project_lead }}
-      </span>
-
-
-    </div>
-  </div>
-  {% endfor %}
-
-
-  {% else %}
-  <div class="alert alert-info">
-    No projects found. Add a new one to get started!
-  </div>
-  {% endif %}
-
-  
-{% endblock content %}
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

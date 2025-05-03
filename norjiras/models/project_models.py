@@ -36,6 +36,9 @@ class Project(models.Model):
         super().save(*args, **kwargs)
 
 
+
+    # key mjust be uppercase and 10 characters lon
+
 # create a project with fake data
 
 

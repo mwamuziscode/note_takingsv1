@@ -1,2 +1,2 @@
 
-const deleteBtn = docu
+const deleteBtn = "docu"

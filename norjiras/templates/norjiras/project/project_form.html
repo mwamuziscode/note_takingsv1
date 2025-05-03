@@ -1,21 +1,71 @@
 {% extends "notes/base.html" %}
 
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
 
-<!-- form note edit -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Creat Project </h1>
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Save</button>
-            </form>
+
+<!-- create_project.html -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-body p-5">
+                    <h2 class="mb-4 text-center">Create New Project</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Project Name</label>
+                            {{ form.name|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_key" class="form-label">Project Key</label>
+                            {{ form.project_key|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_category" class="form-label">Category</label>
+                            {{ form.category|add_class:"form-select" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_lead" class="form-label">Project Lead</label>
+                            {{ form.project_lead|add_class:"form-select" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_members" class="form-label">Project Members</label>
+                            {{ form.project_members|add_class:"form-select" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_status" class="form-label">Project Status</label>
+                            {{ form.project_status|add_class:"form-select" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_description" class="form-label">Project Description</label>
+                            {{ form.project_description|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_project_urls" class="form-label">Project URL</label>
+                            {{ form.project_urls|add_class:"form-control" }}
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 mt-3">Create Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
 
 
 

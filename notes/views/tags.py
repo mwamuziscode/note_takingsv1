@@ -30,16 +30,16 @@ class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
     template_name = 'notes/tags/tags_form.html'
     fields = ['name']
-    success_url = reverse_lazy('tag-list')
+    success_url = reverse_lazy('notes:tag-list')
 
 class TagUpdateView(LoginRequiredMixin, UpdateView):
     model = Tag
     template_name = 'notes/tags/tags_form.html'
     fields = ['name']
-    success_url = reverse_lazy('tag-list')
+    success_url = reverse_lazy('notes:tag-list')
 
 class TagDeleteView(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = 'notes/tags/tags_confirm_delete.html'
-    success_url = reverse_lazy('tag-list')
+    success_url = reverse_lazy('notes:tag-list')
 

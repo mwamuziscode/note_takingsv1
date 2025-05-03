@@ -23,13 +23,13 @@ class RegisterView(View):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Redirect to login page after registration
+            return redirect('notes:login')  # Redirect to login page after registration
         return render(request, 'registration/register.html', {'form': form})
     
 
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Redirect to the login page after logout
+    return redirect('notes:login')  # Redirect to the login page after logout
 
 

@@ -1,21 +1,74 @@
 {% extends "notes/base.html" %}
 
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
 
-<!-- form note edit -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Creat Note</h1>
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Save</button>
-            </form>
+<section class="py-5" style="background: linear-gradient(to right, #f8f9fa, #e9ecef); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="card border-0 shadow-lg rounded-5">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4 fw-bold text-primary">Create a Beautiful Note</h2>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="form-floating mb-4">
+                                {{ form.title|add_class:"form-control" }}
+                                <label for="id_title">Title</label>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="id_content" class="form-label fw-semibold">Content</label>
+                                {{ form.content|add_class:"form-control border border-2 rounded-4 p-3" }}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="id_image_name" class="form-label fw-semibold">Upload Image</label>
+                                {{ form.image_name|add_class:"form-control" }}
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                {{ form.picture_url|add_class:"form-control" }}
+                                <label for="id_picture_url">Picture URL</label>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="id_category" class="form-label fw-semibold">Category</label>
+                                {{ form.category|add_class:"form-select" }}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="id_tags" class="form-label fw-semibold">Tags</label>
+                                {{ form.tags|add_class:"form-select" }}
+                            </div>
+
+                            <div class="form-check form-switch mb-4">
+                                {{ form.is_archived|add_class:"form-check-input" }}
+                                <label class="form-check-label" for="id_is_archived">Archive this note</label>
+                            </div>
+
+                            <div class="form-check form-switch mb-4">
+                                {{ form.is_favorite|add_class:"form-check-input" }}
+                                <label class="form-check-label" for="id_is_favorite">Mark as favorite</label>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-lg btn-primary rounded-pill shadow-sm">
+                                    <i class="bi bi-journal-plus me-2"></i>Save Note
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
+
+
 
 
 

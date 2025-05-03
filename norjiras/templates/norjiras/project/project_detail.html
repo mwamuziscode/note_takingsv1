@@ -1,49 +1,104 @@
-{% extends "notes/base.html" %}
+{% extends 'notes/base.html' %}
 {% load static %}
 
 
-
 {% block content %}
-    <h1>{{ note.title }}</h1>
-<br>
-<hr>
-<img src="{{ note.image_name.url }}" width="100%" height="225" role="img" alt="{{ note.title }}">
 
-    <p>{{ note.content | safe }}</p>
-    <p>{{ note.created }}</p>
-    <p>{{ note.updated }}</p>
-   here:  <p> {{ note.image_name.url }} </p>
+{% block extrastyle %}
+<style>
 
-<a href="{% url 'note-list' %}" class="btn btn-secondary">Go Back</a> 
-<a href="{% url 'note-delete' note.pk %}" class="btn btn-danger">Delete Note</a> 
-<script>
-$(document).ready(function() {
-    // Bind the click event to the delete button
-    $('#deleteBtn').click(function() {
-        var deleteUrl = $(this).data('url'); // Get the URL from the button data attribute
+        body {
+            background: linear-gradient(to right, #f0f2f5, #d9e4f5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .project-card {
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .project-header {
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            color: white;
+            padding: 30px;
+            border-bottom: 5px solid #f8f9fa;
+        }
+        .badge-status {
+            font-size: 0.9rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        .lead-avatar {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
 
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = deleteUrl; // Redirect to the delete URL
-            }
-        });
-    });
-});
+  </style>
+{% endblock extrastyle %}
 
+<div class="container py-5">
+    <div class="project-card">
+        <div class="project-header d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-0">{{ project.name }}</h2>
+                <p class="mb-0">{{ project.project_key }}</p>
+            </div>
+            <span class="badge-status bg-{{ project.project_status|yesno:'success,danger' }}">{{ project.get_project_status_display }}</span>
+        </div>
 
+        <div class="p-4">
+            <div class="mb-4">
+                <h5 class="text-muted">Category</h5>
+                <p class="fw-semibold">{{ project.category.name }}</p>
+            </div>
 
-const deleteBtn = document.get
+            <div class="mb-4">
+                <h5 class="text-muted">Project Lead</h5>
+                <div class="d-flex align-items-center">
+                    <img src="https://i.pravatar.cc/100?u={{ project.project_lead.id }}" class="lead-avatar me-3" alt="User Avatar">
+                    <strong>{{ project.project_lead.get_full_name|default:project.project_lead.username }}</strong>
+                </div>
+            </div>
 
-</script>
+            <div class="mb-4">
+                <h5 class="text-muted">Team Members</h5>
+                {% if project.project_members.all %}
+                    <ul class="list-inline">
+                        {% for member in project.project_members.all %}
+                            <li class="list-inline-item me-3">
+                                <img src="https://i.pravatar.cc/80?u={{ member.id }}" class="lead-avatar me-1" alt="Member">
+                                <small>{{ member.get_full_name|default:member.username }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No team members assigned.</p>
+                {% endif %}
+            </div>
 
+            <div class="mb-4">
+                <h5 class="text-muted">Description</h5>
+                <p>{{ project.project_description|linebreaksbr }}</p>
+            </div>
 
-{% endblock %}
+            <div class="mb-4">
+                <h5 class="text-muted">Project URL</h5>
+                {% if project.project_urls %}
+                    <a href="{{ project.project_urls }}" target="_blank">{{ project.project_urls }}</a>
+                {% else %}
+                    <p class="text-muted">No URL provided.</p>
+                {% endif %}
+            </div>
 
+            <div class="text-end text-muted">
+                <small>Created: {{ project.created_at|date:"F d, Y H:i" }}</small><br>
+                <small>Last Updated: {{ project.updated_at|date:"F d, Y H:i" }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

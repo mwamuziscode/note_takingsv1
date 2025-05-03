@@ -57,9 +57,9 @@ INSTALLED_APPS += [
     "debug_toolbar",
     "ckeditor_uploader",
     "ckeditor",
-
-    # ...
+    'widget_tweaks',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

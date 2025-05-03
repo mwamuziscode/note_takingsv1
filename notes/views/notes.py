@@ -36,7 +36,7 @@ class NoteDetailView(View):
     def post(self, request, pk):
         note = get_object_or_404(Note, pk=pk)
         note.delete()
-        return redirect('note-list')  # Redirect to a list of notes or wherever you want after delete
+        return redirect('notes:note-list')  # Redirect to a list of notes or wherever you want after delete
 
 
 
@@ -64,7 +64,7 @@ def NoteCreateView(request):
             note = form.save(commit=False)
             note.user = request.user
             note.save()
-            return redirect('note-list')  # or use reverse_lazy if needed
+            return redirect('notes:note-list')  # or use reverse_lazy if needed
     else:
         form = NoteForm()
     return render(request, 'notes/note/note_form.html', {'form': form})
@@ -74,17 +74,12 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
     template_name = 'notes/note/note_form.html'
     fields = '__all__'
-    success_url = reverse_lazy("note-list")
+    success_url = reverse_lazy("notes:note-list")
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        print("HEHEHE ",self.request.user)
-        return super().form_valid(form)
-    success_url = reverse_lazy('note-list')
 
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = 'notes/note/note_confirm_delete.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 

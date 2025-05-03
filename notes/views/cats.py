@@ -30,15 +30,15 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     template_name = 'notes/categories/category_form.html'
     fields = ['name']
-    success_url = reverse_lazy('category-list')
+    success_url = reverse_lazy('notes:category-list')
 
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
     template_name = 'notes/categories/category_form.html'
     fields = ['name']
-    success_url = reverse_lazy('category-list')
+    success_url = reverse_lazy('notes:category-list')
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
     template_name = 'notes/categories/category_confirm_delete.html'
-    success_url = reverse_lazy('category-list')
+    success_url = reverse_lazy('notes:category-list')
