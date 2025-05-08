@@ -3,7 +3,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from notes.views import cats, tags, notes, profiles, index, registrations
 from debug_toolbar.toolbar import debug_toolbar_urls
-from norjiras.views import project
+from norjiras.views import project, project_planning_dashboardViews
 from django.urls import path
 
 app_name = 'norjiras'
@@ -18,6 +18,24 @@ urlpatterns = [
 ]
 
 
+# plannings patterns
+urlpatterns += [ 
+    path('project/<slug:slug>/planning-dashboard/', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard'),
+    path('project/<slug:slug>/planning-dashboard/?section=backlog', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard-backlog'),]
+
+
 # Authentication URL
+urlpatterns += [
+    path('summary/', project_planning_dashboardViews.SummaryView.as_view(), name='summary'),
+    path('timeline/', project_planning_dashboardViews.TimelineView.as_view(), name='timeline'),
+    path('backlog/', project_planning_dashboardViews.BacklogView.as_view(), name='backlog'),
+    path('board/', project_planning_dashboardViews.BoardView.as_view(), name='board'),
+    path('calendar/', project_planning_dashboardViews.CalendarView.as_view(), name='calendar'),
+    path('list/', project_planning_dashboardViews.ListView.as_view(), name='list'),
+    path('forms/', project_planning_dashboardViews.FormsView.as_view(), name='forms'),
+    path('goals/', project_planning_dashboardViews.GoalsView.as_view(), name='goals'),
+    path('all-work/', project_planning_dashboardViews.AllWorkView.as_view(), name='allwork'),
+    path('reports/', project_planning_dashboardViews.ReportsView.as_view(), name='reports'),
+]
 
 urlpatterns += [] + debug_toolbar_urls()

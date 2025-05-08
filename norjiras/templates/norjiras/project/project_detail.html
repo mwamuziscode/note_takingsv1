@@ -1,104 +1,61 @@
-{% extends 'notes/base.html' %}
-{% load static %}
-
-
+{% extends "notes/base.html" %}
 {% block content %}
+<div class="container-fluid py-4">
 
-{% block extrastyle %}
-<style>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>📊 Project Summary</h3>
+    <button class="btn btn-outline-secondary">🔍 Filter</button>
+  </div>
 
-        body {
-            background: linear-gradient(to right, #f0f2f5, #d9e4f5);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .project-card {
-            border-radius: 20px;
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .project-header {
-            background: linear-gradient(to right, #007bff, #00c6ff);
-            color: white;
-            padding: 30px;
-            border-bottom: 5px solid #f8f9fa;
-        }
-        .badge-status {
-            font-size: 0.9rem;
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-        .lead-avatar {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid white;
-        }
-
-  </style>
-{% endblock extrastyle %}
-
-<div class="container py-5">
-    <div class="project-card">
-        <div class="project-header d-flex justify-content-between align-items-center">
-            <div>
-                <h2 class="mb-0">{{ project.name }}</h2>
-                <p class="mb-0">{{ project.project_key }}</p>
-            </div>
-            <span class="badge-status bg-{{ project.project_status|yesno:'success,danger' }}">{{ project.get_project_status_display }}</span>
-        </div>
-
-        <div class="p-4">
-            <div class="mb-4">
-                <h5 class="text-muted">Category</h5>
-                <p class="fw-semibold">{{ project.category.name }}</p>
-            </div>
-
-            <div class="mb-4">
-                <h5 class="text-muted">Project Lead</h5>
-                <div class="d-flex align-items-center">
-                    <img src="https://i.pravatar.cc/100?u={{ project.project_lead.id }}" class="lead-avatar me-3" alt="User Avatar">
-                    <strong>{{ project.project_lead.get_full_name|default:project.project_lead.username }}</strong>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <h5 class="text-muted">Team Members</h5>
-                {% if project.project_members.all %}
-                    <ul class="list-inline">
-                        {% for member in project.project_members.all %}
-                            <li class="list-inline-item me-3">
-                                <img src="https://i.pravatar.cc/80?u={{ member.id }}" class="lead-avatar me-1" alt="Member">
-                                <small>{{ member.get_full_name|default:member.username }}</small>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">No team members assigned.</p>
-                {% endif %}
-            </div>
-
-            <div class="mb-4">
-                <h5 class="text-muted">Description</h5>
-                <p>{{ project.project_description|linebreaksbr }}</p>
-            </div>
-
-            <div class="mb-4">
-                <h5 class="text-muted">Project URL</h5>
-                {% if project.project_urls %}
-                    <a href="{{ project.project_urls }}" target="_blank">{{ project.project_urls }}</a>
-                {% else %}
-                    <p class="text-muted">No URL provided.</p>
-                {% endif %}
-            </div>
-
-            <div class="text-end text-muted">
-                <small>Created: {{ project.created_at|date:"F d, Y H:i" }}</small><br>
-                <small>Last Updated: {{ project.updated_at|date:"F d, Y H:i" }}</small>
-            </div>
-        </div>
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3">
+        <h5>✅ {{ completed }} completed</h5>
+        <small class="text-muted">in the last 7 days</small>
+      </div>
     </div>
-</div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3">
+        <h5>✏️ {{ updated }} updated</h5>
+        <small class="text-muted">in the last 7 days</small>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3">
+        <h5>🆕 {{ created }} created</h5>
+        <small class="text-muted">in the last 7 days</small>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3">
+        <h5>📅 {{ due_soon }} due soon</h5>
+        <small class="text-muted">in the next 7 days</small>
+      </div>
+    </div>
+  </div>
 
-{% endblock content %}
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-4 text-center">
+        <h6>Status overview</h6>
+        <p class="text-muted">The status overview for this project will display here after you <a href="#">create some work items</a>.</p>
+        <h1>{{ total_items }}</h1>
+        <small class="text-muted">Total work items</small>
+        <div class="mt-2">
+          <span class="badge bg-primary">Done: {{ done_items }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <div class="text-center">
+        <div class="fs-1">☑️</div>
+        <h5>No activity yet</h5>
+        <p>Create a few work items and invite some teammates to see your project activity.</p>
+      </div>
+    </div>
+  </div>
+
+  
+
+</div>
+{% endblock %}

@@ -1,5 +1,7 @@
 from django.contrib import admin
-from norjiras.models import  Project, Category #Issue, Comment, Attachment, UserProfile
+from norjiras.models import  Project, Category, IssueType, Issue
+
+ #Issue, Comment, Attachment, UserProfile
 
 
 
@@ -27,3 +29,19 @@ class ProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(Project)
 admin.site.register(Category)
+
+
+
+
+
+
+@admin.register(IssueType)
+class IssueTypeAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ['name', 'icon']
+
+@admin.register(Issue)
+class IssueAdmin(admin.ModelAdmin):
+    list_display = ['title', 'issue_type', 'created_at']
+    list_filter = ['issue_type']
+

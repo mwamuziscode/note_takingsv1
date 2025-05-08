@@ -1,1 +1,1 @@
-from norjiras.models.project_models import Project, Category
+from norjiras.models.project_models import *

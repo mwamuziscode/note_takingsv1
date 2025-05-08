@@ -1,0 +1,49 @@
+@startuml
+!theme amiga
+
+class User {
+    id: int
+    username: str
+
+}
+
+class Category {
+    id: int
+    name: str
+}
+
+class Tag {
+    id: int
+    name: str
+}
+
+
+
+
+
+
+class Project {
+    id: int
+    title: str
+    content: RichText
+    image_name: Image
+    picture_url: URL
+    created_at: datetime
+    updated_at: datetime
+    is_archived: bool
+    is_favorite: bool
+}
+
+
+class ProjectSummary {
+
+}
+
+
+
+
+Project --> "1" Category : category (nullable)
+Project --> "*" Tag : tags (many-to-many)
+Project --> "1" User : user
+ProjectSummary --> "1" Project : project
+@enduml

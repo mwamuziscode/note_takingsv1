@@ -1,0 +1,94 @@
+@startuml
+!theme amiga
+
+' Core entities
+class User {
+    +id: int
+    +username: str
+    +email: str
+    +role: Role
+}
+
+class Project {
+    +id: int
+    +name: str
+    +key: str
+    +description: text
+}
+
+class Issue {
+    project: Project
+    +id: int
+    +summary: str
+    +description: text
+    +type: IssueType
+    +status: Status
+    +priority: Priority
+    +created_at: datetime
+    +updated_at: datetime
+    +due_date: date
+}
+
+class Comment {
+    +id: int
+    +body: text
+    +created_at: datetime
+}
+
+class Attachment {
+    +id: int
+    +filename: str
+    +file_url: str
+    +uploaded_at: datetime
+}
+
+class Sprint {
+    +id: int
+    +name: str
+    +start_date: date
+    +end_date: date
+    +goal: str
+}
+
+class Workflow {
+    +id: int
+    +name: str
+}
+
+class Status {
+    +id: int
+    +name: str
+    +category: str
+}
+
+class Role {
+    +id: int
+    +name: str
+}
+
+enum IssueType {
+    Bug
+    Task
+    Story
+    Epic
+    Sub-task
+}
+
+enum Priority {
+    Low
+    Medium
+    High
+    Critical
+}
+
+' Relationships
+User "1" --> "*" Project : manages
+Project "1" --> "*" Issue
+Issue "1" --> "*" Comment
+Issue "1" --> "*" Attachment
+Issue "1" --> "1" User : reporter
+Issue "1" --> "1" User : assignee
+Issue "*" --> Sprint : part of
+Workflow "1" --> "*" Status
+
+@enduml

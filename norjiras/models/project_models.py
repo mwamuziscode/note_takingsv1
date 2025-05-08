@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-import faker
-from faker import Faker
+from django.utils.text import slugify
+
 
 
 
@@ -24,6 +24,7 @@ class Project(models.Model):
     project_urls = models.URLField(max_length=200, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -36,11 +37,38 @@ class Project(models.Model):
         super().save(*args, **kwargs)
 
 
+    # slugify the project name to create a unique project key
 
-    # key mjust be uppercase and 10 characters lon
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
-# create a project with fake data
+    
 
+class IssueType(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(unique=True, blank=True)
+    icon = models.ImageField(upload_to='issue_type_icons/', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class Issue(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    issue_type = models.ForeignKey(IssueType, on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"[{self.issue_type}] {self.title}"
 
 
 

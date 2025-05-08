@@ -1,0 +1,25 @@
+@startuml
+!theme amiga
+
+
+class PlansBase {
+    project_plansbase_html()
+    
+    html(title, content, footer)
+}
+
+class DashBoard {
+  +project_plansbase_html()
+}
+
+
+class Summary {
+    project_plansbase_html()
+}
+
+
+
+PlansBase --> DashBoard : inherits basehtml
+DashBoard --> Summary : inherits dasgboardhtml
+
+@enduml

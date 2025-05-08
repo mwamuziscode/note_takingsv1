@@ -1,0 +1,124 @@
+{% extends 'norjiras/plannings/project_planning_dashboard.html' %}
+{% load static %}
+
+
+{% block content_dashborad %}
+
+<div class="container py-4 overflow-auto">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Project Overview</h4>
+        <button class="btn btn-outline-secondary btn-sm">Filter</button>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card card-summary completed p-3">
+                <h5 class="text-success mb-1">2 completed</h5>
+                <small>in the last 7 days</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-summary updated p-3">
+                <h5 class="text-primary mb-1">3 updated</h5>
+                <small>in the last 7 days</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-summary created p-3">
+                <h5 class="text-secondary mb-1">3 created</h5>
+                <small>in the last 7 days</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-summary due p-3">
+                <h5 class="text-danger mb-1">0 due soon</h5>
+                <small>in the next 7 days</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h5>Status overview</h5>
+                <p class="text-muted">Get a snapshot of the status of your work items. <a href="#">View all work
+                        items</a></p>
+                <div class="pie-placeholder">3</div>
+                <div class="text-center mt-2">
+                    <span class="me-3 text-primary">Progress: 1</span>
+                    <span class="text-warning">Done: 2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h5>Recent activity</h5>
+                <p class="text-muted">Stay up to date with what's happening across the project.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div><strong>norzaco</strong> updated field "status" on <a href="#">DP-9</a> <span
+                                class="activity-badge progress-badge">PROGRESS</span></div>
+                        <small class="text-muted">3 minutes ago</small>
+                    </li>
+                    <li class="list-group-item">
+                        <div><strong>norzaco</strong> created <a href="#">DP-9</a> <span
+                                class="activity-badge progress-badge">PROGRESS</span></div>
+                        <small class="text-muted">3 minutes ago</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h5>Status overview</h5>
+                <p class="text-muted">Get a snapshot of the status of your work items. <a href="#">View all work
+                        items</a></p>
+                <div class="pie-placeholder">3</div>
+                <div class="text-center mt-2">
+                    <span class="me-3 text-primary">Progress: 1</span>
+                    <span class="text-warning">Done: 2</span>
+                </div>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h5>Recent activity</h5>
+                <p class="text-muted">Stay up to date with what's happening across the project.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div><strong>norzaco</strong> updated field "status" on <a href="#">DP-9</a> <span
+                                class="activity-badge progress-badge">PROGRESS</span></div>
+                        <small class="text-muted">3 minutes ago</small>
+                    </li>
+                    <li class="list-group-item">
+                        <div><strong>norzaco</strong> created <a href="#">DP-9</a> <span
+                                class="activity-badge progress-badge">PROGRESS</span></div>
+                        <small class="text-muted">3 minutes ago</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card p-3 h-100">
+                <h5>Status overview</h5>
+                <p class="text-muted">Get a snapshot of the status of your work items. <a href="#">View all work
+                        items</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content_dashborad %}
