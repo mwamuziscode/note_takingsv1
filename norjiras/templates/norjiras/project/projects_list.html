@@ -86,7 +86,9 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <a href="{% url 'norjiras:planning-dashboard' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+                            <a href="{% url 'norjiras:planhboard' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+                            <a href="{% url 'norjiras:planhboard' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+
                         </td>
                     </tr>
                 {% empty %}

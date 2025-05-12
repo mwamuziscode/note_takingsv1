@@ -1,12 +1,54 @@
 {% extends 'norjiras/plannings/project_planning_dashboard.html' %}
 
-{% load static %}
+{% load static %}  
+{% load widget_tweaks %}
 {% block title %} Project Planning Dashboard {% endblock %}
 
-<div class="content-area overflow-y: scroll; overflow-y: auto">
+
   {% block content_dashborad %}
 
+  <div class="content-area overflow-y: scroll; overflow-y: auto">
+          <div class="card shadow-lg rounded-4 border-0">
+              <div class="card-body p-5">
+                  <h2 class="mb-4 text-center">Create NeW Type </h2>
+                  <form method="POST">
+                      {% csrf_token %}
 
+                      <div class="mb-3">
+                          <label for="id_name" class="form-label">Project Name</label>
+                          {{ form.name|add_class:"form-control" }}
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="id_project_key" class="form-label">slug Key</label>
+                          {{ form.slug|add_class:"form-control" }}
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="id_category" class="form-label">Id</label>
+                          {{ form.id|add_class:"form-select" }}
+                      </div>
+
+                      <div class="mb-3">
+                          <label for="id_project_lead" class="form-label">Project Lead</label>
+                          {{ form.project_lead|add_class:"form-select" }}
+                      </div>
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-primary btn-lg px-5 mt-3">Create Project</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+
+      {% block extrahead %}
+      <script>
+          window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';
+      </script>
+      {{ block.super }}
+      {% endblock %}
+  
+  
+      <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
   {% endblock %}
 </div>

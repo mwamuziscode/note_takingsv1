@@ -60,6 +60,8 @@ class IssueType(models.Model):
         return self.name
 
 
+
+
 class Issue(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()

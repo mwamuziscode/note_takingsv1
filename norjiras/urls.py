@@ -20,8 +20,9 @@ urlpatterns = [
 
 # plannings patterns
 urlpatterns += [ 
-    path('project/<slug:slug>/planning-dashboard/', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard'),
-    path('project/<slug:slug>/planning-dashboard/?section=backlog', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard-backlog'),]
+    path('<slug:slug>/', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planhboard'),
+    #path('/<slug:slug>/plans-boroad/?section=backlog', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard-backlog'),
+]
 
 
 # Authentication URL
@@ -31,8 +32,8 @@ urlpatterns += [
     path('backlog/', project_planning_dashboardViews.BacklogView.as_view(), name='backlog'),
     path('board/', project_planning_dashboardViews.BoardView.as_view(), name='board'),
     path('calendar/', project_planning_dashboardViews.CalendarView.as_view(), name='calendar'),
-    path('list/', project_planning_dashboardViews.ListView.as_view(), name='list'),
-    path('forms/', project_planning_dashboardViews.FormsView.as_view(), name='forms'),
+    path('plans-list/', project_planning_dashboardViews.TypeView.as_view(), name='type-list'),
+    path('planning/forms/', project_planning_dashboardViews.FormsView.as_view(), name='type-forms'),
     path('goals/', project_planning_dashboardViews.GoalsView.as_view(), name='goals'),
     path('all-work/', project_planning_dashboardViews.AllWorkView.as_view(), name='allwork'),
     path('reports/', project_planning_dashboardViews.ReportsView.as_view(), name='reports'),
