@@ -14,10 +14,6 @@ from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404
 from django import forms
 
-
-from faker import Faker
-
-
 class NoteListView(LoginRequiredMixin, ListView):
     model = Note
     template_name = 'notes/note/notes_list.html'

@@ -60,6 +60,7 @@
                     <th>Status</th>
                     <th>Lead</th>
                     <th>Members</th>
+                    <td> Slug </td>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -85,9 +86,9 @@
                                 <span class="text-muted">No members</span>
                             {% endfor %}
                         </td>
+                        <td> {{project.slug}} </td>                        
                         <td>
-                            <a href="{% url 'norjiras:planhboard' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="{% url 'norjiras:planhboard' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
+                            <a href="{% url 'norjiras:summary' project.slug %}" class="btn btn-sm btn-outline-primary">View</a>
 
                         </td>
                     </tr>

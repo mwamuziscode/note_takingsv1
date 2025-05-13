@@ -44,7 +44,7 @@ class Project(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    
+  
 
 class IssueType(models.Model):
     name = models.CharField(max_length=50, unique=True)

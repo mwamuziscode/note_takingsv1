@@ -1,5 +1,5 @@
 from django.db import models
-from norjiras.models.project_models import Project
+from norjiras.models.project_models import Project, IssueType
 
 
 # create the summary models

@@ -13,53 +13,174 @@ from django.views import View
 class PlanningDashboardView(View):
     template_name = 'norjiras/plannings/project_planning_dashboard.html'
     
-    def get(self, request, *args, **kwargs):
-        # Get the project slug from the URL
-        slug = kwargs.get('slug')
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
         # Fetch the project object based on the slug
         project_Exist = get_object_or_404(Project, slug=slug)
-        # Render the template with the project context
-        return render(request, self.template_name, {'project': project_Exist})
-
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
 
 
 
 class SummaryView(TemplateView):
     Model = Project
     template_name = 'norjiras/plannings/project_planning_summarys.html'
-    context_object_name = 'project_sums'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
 
     
 
 class TimelineView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_timeline.html'
+    context_object_name = 'project'
 
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
 
 class BacklogView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_backlog.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+
 
 
 class BoardView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_board.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+
+
 
 
 class CalendarView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_calendar.html'
+    context_object_name = 'project'
 
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
 class TypeCreateView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_list.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+    
+
+
 
 class FormsView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_forms.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+    
+
 
 class GoalsView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_goals.html'    
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+    
 
 class AllWorkView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_allwork.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+    
 
 class ReportsView(TemplateView):
     template_name = 'norjiras/plannings/project_planning_reports.html'
+    context_object_name = 'project'
+
+    #get the project slug from the URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        # Fetch the project object based on the slug
+        project_Exist = get_object_or_404(Project, slug=slug)
+        # Add the project to the context
+        context['project'] = project_Exist
+        return context
+
+ 
+
 
 
 class TypeCreateView(LoginRequiredMixin, CreateView):
@@ -67,6 +188,8 @@ class TypeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'norjiras/plannings/project_planning_forms.html'
     fields = '__all__'
     success_url = reverse_lazy('norjiras:type-list')
+
+
 
 class TypeView(TemplateView):
     model = IssueType

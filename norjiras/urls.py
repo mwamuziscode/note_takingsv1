@@ -22,21 +22,16 @@ urlpatterns = [
 urlpatterns += [ 
     path('<slug:slug>/', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planhboard'),
     #path('/<slug:slug>/plans-boroad/?section=backlog', project_planning_dashboardViews.PlanningDashboardView.as_view(), name='planning-dashboard-backlog'),
-]
-
-
-# Authentication URL
-urlpatterns += [
-    path('summary/', project_planning_dashboardViews.SummaryView.as_view(), name='summary'),
-    path('timeline/', project_planning_dashboardViews.TimelineView.as_view(), name='timeline'),
-    path('backlog/', project_planning_dashboardViews.BacklogView.as_view(), name='backlog'),
-    path('board/', project_planning_dashboardViews.BoardView.as_view(), name='board'),
-    path('calendar/', project_planning_dashboardViews.CalendarView.as_view(), name='calendar'),
-    path('plans-list/', project_planning_dashboardViews.TypeView.as_view(), name='type-list'),
-    path('planning/forms/', project_planning_dashboardViews.FormsView.as_view(), name='type-forms'),
-    path('goals/', project_planning_dashboardViews.GoalsView.as_view(), name='goals'),
-    path('all-work/', project_planning_dashboardViews.AllWorkView.as_view(), name='allwork'),
-    path('reports/', project_planning_dashboardViews.ReportsView.as_view(), name='reports'),
+    path('<slug:slug>/summary/', project_planning_dashboardViews.SummaryView.as_view(), name='summary'),
+    path('<slug:slug>/timeline/', project_planning_dashboardViews.TimelineView.as_view(), name='timeline'),
+    path('<slug:slug>/backlog/', project_planning_dashboardViews.BacklogView.as_view(), name='backlog'),
+    path('<slug:slug>/board/', project_planning_dashboardViews.BoardView.as_view(), name='board'),
+    path('<slug:slug>/calendar/', project_planning_dashboardViews.CalendarView.as_view(), name='calendar'),
+    path('<slug:slug>/plans-list/', project_planning_dashboardViews.TypeView.as_view(), name='type-list'),
+    path('<slug:slug>/forms/', project_planning_dashboardViews.FormsView.as_view(), name='type-forms'),
+    path('<slug:slug>/goals/', project_planning_dashboardViews.GoalsView.as_view(), name='goals'),
+    path('<slug:slug>/all-work/', project_planning_dashboardViews.AllWorkView.as_view(), name='allwork'),
+    path('<slug:slug>/reports/', project_planning_dashboardViews.ReportsView.as_view(), name='reports'),
 ]
 
 urlpatterns += [] + debug_toolbar_urls()
